@@ -77,3 +77,12 @@ Para archivos grandes (> 100 MB) se usaría `mmap` y escaneo por bloques manteni
 | MISP | misp-project.org | Feeds compartidos entre organizaciones |
 
 `GestorFirmas` es agnóstico al origen: cualquier feed se puede normalizar al formato `nombre:HEX`.
+### Identificación de patrones detectados
+
+Cada firma se inserta en el Trie con un nombre legible (`NodoTrie.nombre_firma`). Cuando un escaneo encuentra una coincidencia se construye un `Deteccion(archivo, firma, offset, longitud, tipo_escaneo, errores)`. El `offset` se reporta en hexadecimal para que sea verificable manualmente con un editor hex. El informe final agrupa por archivo:
+
+```
+[!] /home/user/Downloads/sospechoso.bin
+     -> Trojan.Generic.A @ offset 0x000000c8 (8B) (exacto)
+     -> Ransomware.Lockbit.Stub @ offset 0x00000198 (8B) (exacto)
+```
