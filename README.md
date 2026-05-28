@@ -154,6 +154,11 @@ python tests/test_trie.py
 # Benchmark Trie vs. lineal — genera tests/benchmark_results.csv
 python tests/benchmark.py
 ```
+
+### Códigos de salida (estilo antivirus)
+
+- `0` — Sin amenazas detectadas.
+- `1` — Se han encontrado archivos infectados o hubo error de carga.
 ## Estructura del repositorio
 
 ```
@@ -183,7 +188,3 @@ python tests/benchmark.py
     ├── test_trie.py        # 9 tests unitarios
     └── benchmark.py        # benchmark Trie vs. lineal
 ```
-### Códigos de salida (estilo antivirus)
-
-- `0` — Sin amenazas detectadas.
-- `1` — Se han encontrado archivos infectados o hubo error de carga.
