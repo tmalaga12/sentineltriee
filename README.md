@@ -46,3 +46,7 @@ Otras clases del sistema:
 - **`Escaner`** (`source/escaner.py`) — Orquesta el recorrido recursivo del sistema de archivos.
 - **`GeneradorReporte`** (`source/reporte.py`) — Genera salida humana y JSON.
 - **`Deteccion`, `ResultadoEscaneo`** — Dataclasses inmutables del dominio.
+## Modelo de datos: lectura de archivos y fuentes de firmas
+
+Esta sección responde explícitamente a las preguntas planteadas durante la revisión de la Fase 1 sobre cuándo se leen los archivos, de dónde se obtienen las firmas, cómo se identifican los matches y los tiempos esperados según el alcance.
+
