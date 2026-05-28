@@ -50,3 +50,13 @@ Otras clases del sistema:
 
 Esta sección responde explícitamente a las preguntas planteadas durante la revisión de la Fase 1 sobre cuándo se leen los archivos, de dónde se obtienen las firmas, cómo se identifican los matches y los tiempos esperados según el alcance.
 
+### Lectura de archivos: MVP vs sistema real
+
+**En este MVP** la lectura es **on-demand y síncrona**: el usuario lanza la CLI contra un archivo o un directorio, `Escaner._recorrer()` hace un DFS recursivo y para cada archivo `MotorEscaneo.escanear_archivo()` abre el archivo en modo binario, lo carga entero en memoria (con un cap de 10 MB para evitar consumos descontrolados) y se lo pasa al motor. No hay descarga remota: las firmas y los archivos a escanear están ya en disco.
+
+**En un sistema real de producción** la lectura sería **on-access**, interceptando eventos del sistema operativo:
+- **Linux:** API `fanotify` para interceptar `open`/`exec` y bloquear el archivo hasta que se haya escaneado.
+- **Windows:** un **minifilter driver** que se engancha al subsistema de archivos del kernel (es el modelo que usa Microsoft Defender).
+- **macOS:** el `Endpoint Security framework`.
+
+Para archivos grandes (> 100 MB) se usaría `mmap` y escaneo por bloques manteniendo el estado del Trie entre lecturas — está recogido en las propuestas de mejora del `estudi_complexitat.pdf`.
