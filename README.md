@@ -154,7 +154,35 @@ python tests/test_trie.py
 # Benchmark Trie vs. lineal — genera tests/benchmark_results.csv
 python tests/benchmark.py
 ```
+## Estructura del repositorio
 
+```
+.
+├── README.md
+├── data/
+│   ├── generar_test_files.py
+│   ├── signatures/
+│   │   └── signatures.db
+│   └── test_files/                  # generados por generar_test_files.py
+├── docs/
+│   ├── uml.svg
+│   ├── flux_F1_carga_firmas.svg
+│   ├── flux_F2_escaneo_multimodal.svg
+│   ├── flux_F3_navegacion_directorios.svg
+│   ├── flux_F4_reporte_amenazas.svg
+│   ├── estudi_complexitat.pdf
+│   └── conclusions_i_propostes_futur.pdf
+├── source/
+│   ├── trie.py             # Trie + NodoTrie (recursión)
+│   ├── signature_db.py     # GestorFirmas
+│   ├── motor_escaneo.py    # MotorEscaneo + 2 subclases (polimorfismo)
+│   ├── escaner.py          # Escaner (DFS recursivo)
+│   ├── reporte.py          # GeneradorReporte
+│   └── main.py             # CLI
+└── tests/
+    ├── test_trie.py        # 9 tests unitarios
+    └── benchmark.py        # benchmark Trie vs. lineal
+```
 ### Códigos de salida (estilo antivirus)
 
 - `0` — Sin amenazas detectadas.
