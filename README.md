@@ -27,3 +27,22 @@ SentinelTrie aborda ambos problemas con una única estructura de datos: el **Ár
 
 ## Uso de POO y polimorfismo
 
+El sistema está diseñado en torno a una **jerarquía polimórfica de motores de escaneo**. Las clases principales son:
+
+- **`MotorEscaneo`** (`source/motor_escaneo.py`) — Clase **abstracta** (`ABC`). Define la interfaz común con el método abstracto `analizar(datos, archivo)` y el método compartido `escanear_archivo(archivo)` (patrón Template Method).
+- **`EscaneoFirmaExacta`** — Subclase concreta que reimplementa `analizar()` haciendo coincidencia exacta byte a byte mediante `Trie.buscar_en_datos()`.
+- **`EscaneoFirmaParcial`** — Subclase concreta que reimplementa `analizar()` con backtracking recursivo tolerante a mutaciones (`Trie.buscar_aproximado()`).
+
+**Dónde aparece el polimorfismo concretamente:**
+
+1. En `source/escaner.py`, la clase `Escaner` recibe un `MotorEscaneo` por inyección de dependencia y nunca pregunta de qué subclase se trata — simplemente invoca `self.motor.escanear_archivo(...)`. El comportamiento real depende del objeto pasado.
+2. En `source/main.py`, la función `construir_motor()` es el único lugar del programa que conoce las subclases concretas: según `--modo` instancia una u otra, y devuelve el objeto tipado como `MotorEscaneo`. El resto de `main()` lo trata como interfaz.
+3. En `tests/test_trie.py`, el test `test_motores_misma_interfaz` itera explícitamente sobre una lista mixta `[EscaneoFirmaExacta(...), EscaneoFirmaParcial(...)]` invocando los mismos métodos sobre cada instancia.
+
+Otras clases del sistema:
+
+- **`Trie` y `NodoTrie`** (`source/trie.py`) — Estructura de datos central, con inserción y búsqueda recursivas.
+- **`GestorFirmas`** (`source/signature_db.py`) — Encapsula la carga de la base de datos.
+- **`Escaner`** (`source/escaner.py`) — Orquesta el recorrido recursivo del sistema de archivos.
+- **`GeneradorReporte`** (`source/reporte.py`) — Genera salida humana y JSON.
+- **`Deteccion`, `ResultadoEscaneo`** — Dataclasses inmutables del dominio.
