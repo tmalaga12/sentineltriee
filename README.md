@@ -99,3 +99,26 @@ Medidos sobre nuestro código (ver `tests/benchmark.py`):
 | Carpeta `Downloads` típica (estimado) | ~500 MB / 500 archivos | 5.000 | 5–30 s |
 
 El motor parcial (`--max-errores 1`) es del orden de **10× más lento** que el exacto porque para cada longitud de firma realiza una ventana deslizante con backtracking. Es razonable usarlo como segunda pasada solo sobre archivos sospechosos, no como motor principal.
+
+## Instrucciones de ejecución y dependencias
+
+### Requisitos
+
+- **Python 3.10 o superior** (usamos `match-case`, anotaciones `X | None` y `dataclasses`).
+- Solo la **biblioteca estándar** para el motor en sí. `reportlab` solo se usó para generar los PDFs de la documentación (ya incluidos en `/docs`, no es necesaria su instalación).
+
+### Generar los archivos de prueba (primera vez)
+
+```bash
+python data/generar_test_files.py
+```
+
+Esto crea `data/test_files/` con archivos limpios y archivos sintéticos infectados.
+
+### Ejecutar un escaneo (modo exacto)
+
+```bash
+cd source
+python main.py --firmas ../data/signatures/signatures.db \
+               --objetivo ../data/test_files
+```
