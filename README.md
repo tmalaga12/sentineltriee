@@ -122,3 +122,40 @@ cd source
 python main.py --firmas ../data/signatures/signatures.db \
                --objetivo ../data/test_files
 ```
+### Ejecutar en modo parcial (tolerante a mutaciones)
+
+```bash
+python main.py --firmas ../data/signatures/signatures.db \
+               --objetivo ../data/test_files \
+               --modo parcial --max-errores 1
+```
+
+### Exportar informe JSON
+
+```bash
+python main.py --firmas ../data/signatures/signatures.db \
+               --objetivo ../data/test_files \
+               --json informe.json
+```
+
+### Filtrar por extensiones
+
+```bash
+python main.py --firmas ../data/signatures/signatures.db \
+               --objetivo /ruta/grande --ext .exe,.dll,.bin
+```
+
+### Tests y benchmarks
+
+```bash
+# 9 tests unitarios
+python tests/test_trie.py
+
+# Benchmark Trie vs. lineal — genera tests/benchmark_results.csv
+python tests/benchmark.py
+```
+
+### Códigos de salida (estilo antivirus)
+
+- `0` — Sin amenazas detectadas.
+- `1` — Se han encontrado archivos infectados o hubo error de carga.
