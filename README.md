@@ -86,3 +86,16 @@ Cada firma se inserta en el Trie con un nombre legible (`NodoTrie.nombre_firma`)
      -> Trojan.Generic.A @ offset 0x000000c8 (8B) (exacto)
      -> Ransomware.Lockbit.Stub @ offset 0x00000198 (8B) (exacto)
 ```
+
+### Tiempos esperados según el alcance
+
+Medidos sobre nuestro código (ver `tests/benchmark.py`):
+
+| Alcance | Tamaño | Firmas | Tiempo (exacto) |
+|---|---|---|---|
+| Carpeta `test_files` de la demo | 9,8 KB | 18 | ~16 ms |
+| Archivo de 100 KB | 100 KB | 500 | ~23 ms |
+| Archivo de 1 MB | 1 MB | 5.000 | ~274 ms (vs 935 ms lineal) |
+| Carpeta `Downloads` típica (estimado) | ~500 MB / 500 archivos | 5.000 | 5–30 s |
+
+El motor parcial (`--max-errores 1`) es del orden de **10× más lento** que el exacto porque para cada longitud de firma realiza una ventana deslizante con backtracking. Es razonable usarlo como segunda pasada solo sobre archivos sospechosos, no como motor principal.
