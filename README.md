@@ -60,3 +60,20 @@ Esta sección responde explícitamente a las preguntas planteadas durante la rev
 - **macOS:** el `Endpoint Security framework`.
 
 Para archivos grandes (> 100 MB) se usaría `mmap` y escaneo por bloques manteniendo el estado del Trie entre lecturas — está recogido en las propuestas de mejora del `estudi_complexitat.pdf`.
+
+### Fuentes de firmas
+
+**En el MVP** las firmas viven en `data/signatures/signatures.db`, un archivo de texto cargado al arrancar por `GestorFirmas.cargar_desde_archivo()`. Contiene una firma oficial del sector (EICAR) y 17 firmas sintéticas diseñadas por nosotros para demostrar el ahorro por prefijos compartidos.
+
+**En un sistema real** se alimentaría desde feeds públicos descargados periódicamente:
+
+| Fuente | URL | Qué aporta |
+|---|---|---|
+| abuse.ch MalwareBazaar | bazaar.abuse.ch | Hashes y muestras de malware reciente (API REST gratuita) |
+| abuse.ch URLhaus | urlhaus.abuse.ch | URLs maliciosas |
+| abuse.ch ThreatFox | threatfox.abuse.ch | IoCs (Indicators of Compromise) |
+| ClamAV CVD | clamav.net | Firmas oficiales de ClamAV (`freshclam`) |
+| YARA-Rules | github.com/Yara-Rules/rules | Reglas comunitarias |
+| MISP | misp-project.org | Feeds compartidos entre organizaciones |
+
+`GestorFirmas` es agnóstico al origen: cualquier feed se puede normalizar al formato `nombre:HEX`.
