@@ -130,21 +130,6 @@ python main.py --firmas ../data/signatures/signatures.db \
                --modo parcial --max-errores 1
 ```
 
-### Exportar informe JSON
-
-```bash
-python main.py --firmas ../data/signatures/signatures.db \
-               --objetivo ../data/test_files \
-               --json informe.json
-```
-
-### Filtrar por extensiones
-
-```bash
-python main.py --firmas ../data/signatures/signatures.db \
-               --objetivo /ruta/grande --ext .exe,.dll,.bin
-```
-
 ### Tests y benchmarks
 
 ```bash
