@@ -185,6 +185,6 @@ python tests/benchmark.py
 │   ├── reporte.py          # GeneradorReporte
 │   └── main.py             # CLI
 └── tests/
-    ├── test_trie.py        # 9 tests unitarios
+    ├── test_trie.py        # 5 tests unitarios
     └── benchmark.py        # benchmark Trie vs. lineal
 ```
