@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1050" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .bg { fill:#020617; }
+    .start { fill:#10b981; stroke:#065f46; stroke-width:2.5; }
+    .end-ok { fill:#10b981; stroke:#065f46; stroke-width:2.5; }
+    .end-bad { fill:#ef4444; stroke:#7f1d1d; stroke-width:2.5; }
+    .proc { fill:#0f172a; stroke:#22d3ee; stroke-width:2.5; }
+    .proc-exact { fill:#0c2030; stroke:#22d3ee; stroke-width:2.5; }
+    .proc-partial { fill:#1c0e2c; stroke:#a855f7; stroke-width:2.5; }
+    .dec { fill:#0f172a; stroke:#f59e0b; stroke-width:2.5; }
+    .txt { fill:#f1f5f9; font-size:14px; text-anchor:middle; font-weight:500; }
+    .txt-sm { fill:#cbd5e1; font-size:11px; text-anchor:middle; font-style:italic; }
+    .txt-code { fill:#fbbf24; font-size:11px; text-anchor:middle; font-family:'Courier New', monospace; }
+    .lbl { fill:#f1f5f9; font-size:13px; font-weight:bold; }
+    .lbl-sm { fill:#94a3b8; font-size:11px; font-style:italic; }
+    .arrow { fill:none; stroke:#cbd5e1; stroke-width:2.5; marker-end:url(#flow-arrow); }
+    .arrow-yes { fill:none; stroke:#10b981; stroke-width:2.5; marker-end:url(#arrow-green); }
+    .arrow-no { fill:none; stroke:#ef4444; stroke-width:2.5; marker-end:url(#arrow-red); }
+    .title { fill:#22d3ee; font-size:24px; font-weight:bold; text-anchor:middle; }
+    .sub { fill:#94a3b8; font-size:13px; text-anchor:middle; font-style:italic; }
+    .branch-title { font-size:16px; font-weight:bold; text-anchor:middle; }
+  </style>
+
+  <defs>
+    <marker id="flow-arrow" viewBox="0 0 12 12" refX="11" refY="6"
+            markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#cbd5e1"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 12 12" refX="11" refY="6"
+            markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 12 12" refX="11" refY="6"
+            markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1100" height="1050"/>
+
+  <!-- TÍTULO -->
+  <text x="550" y="40" class="title">F2 — Escaneo Multimodal (Polimorfismo)</text>
+  <text x="550" y="62" class="sub">MotorEscaneo.escanear_archivo() → analizar() — dos implementaciones intercambiables</text>
+
+  <!-- INICIO -->
+  <ellipse class="start" cx="550" cy="110" rx="130" ry="28"/>
+  <text x="550" y="117" class="txt">INICIO escanear_archivo(ruta)</text>
+
+  <!-- PASO 1: Leer bytes -->
+  <rect class="proc" x="370" y="170" width="360" height="70" rx="8"/>
+  <text x="550" y="198" class="txt">Abrir archivo en modo binario</text>
+  <text x="550" y="218" class="txt-code">datos = open(ruta, "rb").read()</text>
+
+  <!-- DECISIÓN: qué motor -->
+  <polygon class="dec" points="550,280 770,360 550,440 330,360"/>
+  <text x="550" y="350" class="txt">¿Tipo de motor?</text>
+  <text x="550" y="372" class="txt-sm">(polimorfismo)</text>
+
+  <!-- ================ RAMA IZQUIERDA: EXACTO ================ -->
+  <text x="180" y="465" class="branch-title" fill="#22d3ee">MotorExacto</text>
+
+  <rect class="proc-exact" x="40" y="490" width="320" height="80" rx="8"/>
+  <text x="200" y="518" class="txt">analizar(datos)</text>
+  <text x="200" y="540" class="txt-code">trie.buscar_en_datos(datos)</text>
+  <text x="200" y="558" class="txt-sm">una sola pasada — O(m)</text>
+
+  <rect class="proc-exact" x="40" y="600" width="320" height="100" rx="8"/>
+  <text x="200" y="628" class="txt">Para cada posición i del archivo:</text>
+  <text x="200" y="650" class="txt-sm">descender el Trie siguiendo bytes[i..]</text>
+  <text x="200" y="668" class="txt-sm">si nodo.final → registrar</text>
+  <text x="200" y="686" class="txt-code">(offset, longitud, nombre)</text>
+
+  <!-- ================ RAMA DERECHA: PARCIAL ================ -->
+  <text x="920" y="465" class="branch-title" fill="#a855f7">MotorParcial</text>
+
+  <rect class="proc-partial" x="740" y="490" width="320" height="80" rx="8"/>
+  <text x="900" y="518" class="txt">analizar(datos)</text>
+  <text x="900" y="540" class="txt-code">_longitudes() — DFS Trie</text>
+  <text x="900" y="558" class="txt-sm">obtiene long. reales de firma</text>
+
+  <rect class="proc-partial" x="740" y="600" width="320" height="100" rx="8"/>
+  <text x="900" y="628" class="txt">Ventana deslizante:</text>
+  <text x="900" y="650" class="txt-sm">para cada (longitud, offset)</text>
+  <text x="900" y="668" class="txt-code">trie.buscar_aprox(ventana, errores)</text>
+  <text x="900" y="686" class="txt-sm">BACKTRACKING recursivo</text>
+
+  <!-- MERGE: lista Deteccion -->
+  <rect class="proc" x="370" y="750" width="360" height="80" rx="8"/>
+  <text x="550" y="778" class="txt">Construir lista de detecciones</text>
+  <text x="550" y="800" class="txt-code">(offset, longitud, nombre, errores)</text>
+  <text x="550" y="818" class="txt-sm">retornar a Escaner</text>
+
+  <!-- DECISIÓN: ¿hay detecciones? -->
+  <polygon class="dec" points="550,860 730,920 550,980 370,920"/>
+  <text x="550" y="918" class="txt">¿Detecciones &gt; 0?</text>
+
+  <!-- FINALES -->
+  <ellipse class="end-ok" cx="180" cy="1000" rx="140" ry="26"/>
+  <text x="180" y="1007" class="txt">Archivo LIMPIO</text>
+
+  <ellipse class="end-bad" cx="920" cy="1000" rx="140" ry="26"/>
+  <text x="920" y="1007" class="txt">Archivo INFECTADO</text>
+
+  <!-- ================ FLECHAS ================ -->
+  <!-- INICIO -> leer bytes -->
+  <path class="arrow" d="M 550 138 L 550 170"/>
+
+  <!-- leer bytes -> decisión -->
+  <path class="arrow" d="M 550 240 L 550 280"/>
+
+  <!-- decisión -> rama izquierda (exacto) -->
+  <path class="arrow" d="M 330 360 C 230 360 200 420 200 490"/>
+  <text x="220" y="430" class="lbl" fill="#22d3ee">exacto</text>
+
+  <!-- decisión -> rama derecha (parcial) -->
+  <path class="arrow" d="M 770 360 C 870 360 900 420 900 490"/>
+  <text x="830" y="430" class="lbl" fill="#a855f7">parcial</text>
+
+  <!-- exacto: paso1 -> paso2 -->
+  <path class="arrow" d="M 200 570 L 200 600"/>
+
+  <!-- parcial: paso1 -> paso2 -->
+  <path class="arrow" d="M 900 570 L 900 600"/>
+
+  <!-- exacto -> merge -->
+  <path class="arrow" d="M 200 700 C 200 760 330 790 370 790"/>
+
+  <!-- parcial -> merge -->
+  <path class="arrow" d="M 900 700 C 900 760 770 790 730 790"/>
+
+  <!-- merge -> decisión final -->
+  <path class="arrow" d="M 550 830 L 550 860"/>
+
+  <!-- decisión final -> limpio -->
+  <path class="arrow-green" d="M 370 920 C 250 920 200 960 200 974"/>
+  <text x="280" y="945" class="lbl" fill="#10b981">No (0)</text>
+
+  <!-- decisión final -> infectado -->
+  <path class="arrow-red" d="M 730 920 C 850 920 900 960 900 974"/>
+  <text x="780" y="945" class="lbl" fill="#ef4444">Sí (≥1)</text>
+
+  <!-- Caja de notas a la izquierda con explicación de polimorfismo -->
+  <g transform="translate(30, 110)">
+    <rect x="0" y="0" width="260" height="120" fill="#0b1224" stroke="#334155" stroke-width="1.5" rx="8"/>
+    <text x="130" y="22" class="lbl" text-anchor="middle">Polimorfismo</text>
+    <text x="15" y="48" class="lbl-sm" font-size="11">El método analizar() es</text>
+    <text x="15" y="64" class="lbl-sm" font-size="11">abstracto en MotorEscaneo</text>
+    <text x="15" y="80" class="lbl-sm" font-size="11">y cada subclase</text>
+    <text x="15" y="96" class="lbl-sm" font-size="11">tiene su implementación.</text>
+    <text x="15" y="112" class="lbl-sm" font-size="11">El cliente no sabe cuál.</text>
+  </g>
+
+  <!-- Caja de notas a la derecha con leyenda formas -->
+  <g transform="translate(810, 110)">
+    <rect x="0" y="0" width="260" height="120" fill="#0b1224" stroke="#334155" stroke-width="1.5" rx="8"/>
+    <text x="130" y="22" class="lbl" text-anchor="middle">Leyenda</text>
+    <ellipse cx="25" cy="48" rx="12" ry="8" fill="#10b981"/>
+    <text x="45" y="52" class="lbl-sm" font-size="11">Inicio / Fin</text>
+    <rect x="13" y="68" width="24" height="14" fill="#0f172a" stroke="#22d3ee" rx="2"/>
+    <text x="45" y="80" class="lbl-sm" font-size="11">Proceso</text>
+    <polygon points="25,98 37,108 25,118 13,108" fill="#0f172a" stroke="#f59e0b"/>
+    <text x="45" y="112" class="lbl-sm" font-size="11">Decisión</text>
+  </g>
+
+</svg>

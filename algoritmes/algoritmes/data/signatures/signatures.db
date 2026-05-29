@@ -1,0 +1,39 @@
+# SentinelTrie - Base de datos de firmas de demostracion
+# Formato: <NombreMalware>:<HEX>
+# son firmas SINTETICAS para pruebas, NO son malware real.
+#
+# Fuentes para un sistema real de produccion:
+#   - abuse.ch MalwareBazaar  (https://bazaar.abuse.ch/)
+#   - abuse.ch URLhaus        (https://urlhaus.abuse.ch/)
+#   - abuse.ch ThreatFox      (https://threatfox.abuse.ch/)
+#   - ClamAV CVD              (descarga con freshclam)
+#   - YARA-Rules en GitHub    (github.com/Yara-Rules/rules)
+#   - MISP                    (feeds compartidos entre organizaciones)
+
+# Cabeceras de ejecutables
+PE.Header.MZ:4D5A9000
+ELF.Header:7F454C46
+Mach-O.Header:CFFAEDFE
+
+# Test string oficial EICAR (estandar del sector para pruebas AV)
+EICAR.Test.File:58354F2150254041505B345C505A58353428505E2937434329377D
+
+# Cadenas sinteticas inspiradas en familias conocidas
+Trojan.Generic.A:DEADBEEFCAFEBABE
+Ransomware.Lockbit.Stub:4C4F434B42495445
+Worm.Conficker.Demo:434F4E4649434B4552
+Backdoor.Demo.B:42414344524F4F52
+Adware.Demo.C:41445741524553424144
+Spyware.Demo.D:535059574152455F46
+Rootkit.Demo.E:524F4F544B4954585858
+Botnet.Mirai.Demo:4D495241494C4F47494E
+
+# Variantes de la misma familia que comparten prefijo
+Trojan.Family.X.v1:54524F4A414E5F58303031
+Trojan.Family.X.v2:54524F4A414E5F58303032
+Trojan.Family.X.v3:54524F4A414E5F58303033
+Trojan.Family.X.v4:54524F4A414E5F58303034
+
+# Otros patrones de prueba
+Suspicious.PowerShell:706F7765727368656C6C202D6E6F70
+Suspicious.CmdExec:636D642E657865202F63

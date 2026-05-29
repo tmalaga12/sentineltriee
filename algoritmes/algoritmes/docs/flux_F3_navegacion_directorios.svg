@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 900" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .bg { fill:#020617; }
+    .start { fill:#10b981; stroke:#065f46; stroke-width:2.5; }
+    .end { fill:#10b981; stroke:#065f46; stroke-width:2.5; }
+    .proc { fill:#0f172a; stroke:#22d3ee; stroke-width:2.5; }
+    .proc-rec { fill:#1c0e2c; stroke:#a855f7; stroke-width:3; }
+    .dec { fill:#0f172a; stroke:#f59e0b; stroke-width:2.5; }
+    .txt { fill:#f1f5f9; font-size:16px; text-anchor:middle; font-weight:600; }
+    .lbl { fill:#f1f5f9; font-size:14px; font-weight:bold; }
+    .title { fill:#22d3ee; font-size:24px; font-weight:bold; text-anchor:middle; }
+    .sub { fill:#94a3b8; font-size:13px; text-anchor:middle; font-style:italic; }
+    .arrow { fill:none; stroke:#cbd5e1; stroke-width:2.5; marker-end:url(#a); }
+    .arrow-rec { fill:none; stroke:#a855f7; stroke-width:3; marker-end:url(#ap); stroke-dasharray:8 4; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 12 12" refX="11" refY="6" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><path d="M 0 0 L 12 6 L 0 12 z" fill="#cbd5e1"/></marker>
+    <marker id="ap" viewBox="0 0 12 12" refX="11" refY="6" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><path d="M 0 0 L 12 6 L 0 12 z" fill="#a855f7"/></marker>
+  </defs>
+
+  <rect class="bg" width="700" height="900"/>
+
+  <text x="350" y="38" class="title">F3 - Navegacion recursiva</text>
+  <text x="350" y="60" class="sub">DFS sobre el sistema de archivos</text>
+
+  <!-- INICIO -->
+  <ellipse class="start" cx="350" cy="110" rx="110" ry="26"/>
+  <text x="350" y="118" class="txt">INICIO</text>
+
+  <!-- Decision: es archivo? -->
+  <polygon class="dec" points="350,170 510,235 350,300 190,235"/>
+  <text x="350" y="240" class="txt">Es un archivo?</text>
+
+  <!-- Si: aplicar motor directamente -->
+  <rect class="proc" x="40" y="345" width="220" height="65" rx="10"/>
+  <text x="150" y="383" class="txt">Aplicar motor</text>
+
+  <ellipse class="end" cx="150" cy="465" rx="110" ry="26"/>
+  <text x="150" y="473" class="txt">FIN</text>
+
+  <!-- No: listar entradas -->
+  <rect class="proc" x="430" y="345" width="220" height="65" rx="10"/>
+  <text x="540" y="383" class="txt">Listar entradas</text>
+
+  <!-- Decision: hay mas entradas? -->
+  <polygon class="dec" points="540,455 700,520 540,585 380,520"/>
+  <text x="540" y="525" class="txt">Hay entrada?</text>
+
+  <!-- No quedan -> FIN -->
+  <ellipse class="end" cx="540" cy="640" rx="110" ry="26"/>
+  <text x="540" y="648" class="txt">FIN</text>
+
+  <!-- Si: ¿que tipo? -->
+  <polygon class="dec" points="270,610 430,675 270,740 110,675"/>
+  <text x="270" y="680" class="txt">Es directorio?</text>
+
+  <!-- Si (subdir) -> LLAMADA RECURSIVA -->
+  <rect class="proc-rec" x="20" y="790" width="240" height="75" rx="10"/>
+  <text x="140" y="822" class="txt" fill="#a855f7">LLAMADA</text>
+  <text x="140" y="848" class="txt" fill="#a855f7">RECURSIVA</text>
+
+  <!-- No (archivo) -> aplicar motor -->
+  <rect class="proc" x="320" y="790" width="240" height="75" rx="10"/>
+  <text x="440" y="835" class="txt">Aplicar motor</text>
+
+  <!-- ===== FLECHAS ===== -->
+
+  <!-- INICIO -> decision -->
+  <path class="arrow" d="M 350 136 L 350 170"/>
+
+  <!-- decision SI -> aplicar motor -->
+  <path class="arrow" d="M 190 235 C 100 235 100 320 150 345"/>
+  <text x="115" y="290" class="lbl" fill="#10b981">Si</text>
+
+  <!-- aplicar -> FIN -->
+  <path class="arrow" d="M 150 410 L 150 439"/>
+
+  <!-- decision NO -> listar -->
+  <path class="arrow" d="M 510 235 C 600 235 600 320 540 345"/>
+  <text x="585" y="290" class="lbl" fill="#ef4444">No</text>
+
+  <!-- listar -> hay entrada? -->
+  <path class="arrow" d="M 540 410 L 540 455"/>
+
+  <!-- hay entrada NO -> FIN -->
+  <path class="arrow" d="M 540 585 L 540 614"/>
+  <text x="555" y="605" class="lbl" fill="#ef4444">No</text>
+
+  <!-- hay entrada SI -> decision tipo -->
+  <path class="arrow" d="M 380 520 C 320 520 290 580 270 610"/>
+  <text x="305" y="568" class="lbl" fill="#10b981">Si</text>
+
+  <!-- decision tipo SI (dir) -> recursiva -->
+  <path class="arrow-rec" d="M 190 705 C 130 720 130 770 140 790"/>
+  <text x="100" y="755" class="lbl" fill="#a855f7">Si</text>
+
+  <!-- decision tipo NO (archivo) -> aplicar motor -->
+  <path class="arrow" d="M 350 705 C 410 720 430 770 440 790"/>
+  <text x="430" y="755" class="lbl" fill="#22d3ee">No</text>
+
+  <!-- VUELTA AL BUCLE -->
+  <path class="arrow-rec" d="M 140 865 C 140 890 700 890 700 540 L 700 530"/>
+  <text x="350" y="884" class="lbl" fill="#a855f7" font-size="12">siguiente entrada</text>
+
+  <path class="arrow" d="M 440 865 C 440 880 690 880 690 535"/>
+
+</svg>

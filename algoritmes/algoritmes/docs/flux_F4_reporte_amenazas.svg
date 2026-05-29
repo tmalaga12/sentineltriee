@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .start { fill:#10b981; stroke:#065f46; stroke-width:2; }
+    .end { fill:#10b981; stroke:#065f46; stroke-width:2; }
+    .proc { fill:#0f172a; stroke:#22d3ee; stroke-width:2; }
+    .dec { fill:#0f172a; stroke:#f59e0b; stroke-width:2; }
+    .io { fill:#0f172a; stroke:#a855f7; stroke-width:2; }
+    .txt { fill:#f1f5f9; font-size:13px; text-anchor:middle; }
+    .txt-sm { fill:#f1f5f9; font-size:11px; text-anchor:middle; }
+    .lbl { fill:#94a3b8; font-size:11px; }
+    .arrow { fill:none; stroke:#94a3b8; stroke-width:2; marker-end:url(#a4); }
+    .title { fill:#22d3ee; font-size:20px; font-weight:bold; text-anchor:middle; }
+    .sub { fill:#94a3b8; font-size:12px; text-anchor:middle; font-style:italic; }
+  </style>
+  <defs>
+    <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect width="800" height="800" fill="#020617"/>
+  <text x="400" y="35" class="title">F4 — Reporte de amenazas</text>
+  <text x="400" y="55" class="sub">GeneradorReporte.imprimir() / exportar_json()</text>
+
+  <ellipse class="start" cx="400" cy="100" rx="100" ry="22"/>
+  <text x="400" y="105" class="txt">Recibir List[ResultadoEscaneo]</text>
+
+  <rect class="proc" x="240" y="150" width="320" height="55" rx="6"/>
+  <text x="400" y="172" class="txt">Agregar métricas globales</text>
+  <text x="400" y="190" class="txt-sm">total archivos, bytes, infectados, errores</text>
+
+  <rect class="proc" x="240" y="230" width="320" height="55" rx="6"/>
+  <text x="400" y="252" class="txt">Filtrar archivos_infectados</text>
+  <text x="400" y="270" class="txt-sm">[r for r in resultados if r.infectado]</text>
+
+  <polygon class="dec" points="400,310 540,370 400,430 260,370"/>
+  <text x="400" y="370" class="txt">¿Infectados?</text>
+
+  <rect class="proc" x="60" y="465" width="280" height="55" rx="6"/>
+  <text x="200" y="487" class="txt">"OK No se detectan amenazas"</text>
+  <text x="200" y="505" class="txt-sm">salida consola verde</text>
+
+  <rect class="proc" x="460" y="465" width="280" height="55" rx="6"/>
+  <text x="600" y="487" class="txt">Para cada r infectado:</text>
+  <text x="600" y="505" class="txt-sm">listar nombre+offset+longitud por detección</text>
+
+  <polygon class="dec" points="400,560 540,615 400,670 260,615"/>
+  <text x="400" y="615" class="txt">¿--json indicado?</text>
+
+  <rect class="io" x="240" y="700" width="320" height="55" rx="6"/>
+  <text x="400" y="722" class="txt">Escribir informe JSON</text>
+  <text x="400" y="740" class="txt-sm">timestamp, totales, amenazas</text>
+
+  <ellipse class="end" cx="700" cy="615" rx="60" ry="22"/>
+  <text x="700" y="620" class="txt">FIN</text>
+
+  <path class="arrow" d="M 400 122 L 400 150"/>
+  <path class="arrow" d="M 400 205 L 400 230"/>
+  <path class="arrow" d="M 400 285 L 400 310"/>
+  <path class="arrow" d="M 260 370 C 200 370 200 463 200 463"/>
+  <text x="195" y="420" class="lbl">No</text>
+  <path class="arrow" d="M 540 370 C 600 370 600 463 600 463"/>
+  <text x="605" y="420" class="lbl">Sí</text>
+  <path class="arrow" d="M 200 520 C 200 615 260 615 260 615"/>
+  <path class="arrow" d="M 600 520 C 600 615 540 615 540 615"/>
+  <path class="arrow" d="M 400 670 L 400 700"/>
+  <text x="410" y="690" class="lbl">Sí</text>
+  <path class="arrow" d="M 540 615 L 640 615"/>
+  <text x="555" y="608" class="lbl">No</text>
+  <path class="arrow" d="M 400 755 C 400 790 700 790 700 640"/>
+</svg>

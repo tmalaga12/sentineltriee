@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 900" font-family="Helvetica, Arial, sans-serif">
+  <style>
+    .bg { fill:#020617; }
+    .cls { fill:#0f172a; stroke:#22d3ee; stroke-width:2.5; }
+    .cls-abs { fill:#0f172a; stroke:#a855f7; stroke-width:2.5; stroke-dasharray:8 4; }
+    .cls-data { fill:#0f172a; stroke:#10b981; stroke-width:2.5; }
+    .title { fill:#22d3ee; font-weight:bold; font-size:16px; }
+    .title-abs { fill:#a855f7; font-weight:bold; font-size:16px; font-style:italic; }
+    .title-data { fill:#10b981; font-weight:bold; font-size:16px; }
+    .stereo { fill:#64748b; font-size:11px; font-style:italic; text-anchor:middle; }
+    .sub { fill:#94a3b8; font-size:11px; font-style:italic; }
+    .member { fill:#e2e8f0; font-size:12px; font-family:'Courier New', monospace; }
+    .member-abs { fill:#e2e8f0; font-size:12px; font-style:italic; font-family:'Courier New', monospace; }
+    .sep { stroke:#475569; stroke-width:1.2; }
+    .label { fill:#cbd5e1; font-size:11px; font-style:italic; }
+    .label-bold { fill:#f1f5f9; font-size:12px; font-weight:bold; }
+    .header { fill:#f1f5f9; font-size:22px; font-weight:bold; }
+    .subheader { fill:#94a3b8; font-size:13px; font-style:italic; }
+
+    .arrow-inh { fill:none; stroke:#a855f7; stroke-width:2.5; marker-end:url(#triangle-empty); }
+    .arrow-comp { fill:none; stroke:#22d3ee; stroke-width:2.5; marker-end:url(#diamond-filled); }
+    .arrow-agg { fill:none; stroke:#10b981; stroke-width:2.5; marker-end:url(#diamond-empty); }
+    .arrow-dep { fill:none; stroke:#94a3b8; stroke-width:2; stroke-dasharray:6 3; marker-end:url(#open-arrow); }
+  </style>
+
+  <defs>
+    <!-- Triángulo vacío de herencia (UML) -->
+    <marker id="triangle-empty" viewBox="0 0 14 14" refX="13" refY="7"
+            markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto">
+      <path d="M 0 0 L 13 7 L 0 14 z" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+    </marker>
+    <!-- Rombo lleno de composición (UML) -->
+    <marker id="diamond-filled" viewBox="0 0 18 12" refX="17" refY="6"
+            markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="14" orient="auto">
+      <path d="M 0 6 L 9 0 L 18 6 L 9 12 z" fill="#22d3ee" stroke="#22d3ee" stroke-width="1"/>
+    </marker>
+    <!-- Rombo vacío de agregación (UML) -->
+    <marker id="diamond-empty" viewBox="0 0 18 12" refX="17" refY="6"
+            markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="14" orient="auto">
+      <path d="M 0 6 L 9 0 L 18 6 L 9 12 z" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
+    </marker>
+    <!-- Flecha abierta de dependencia (UML) -->
+    <marker id="open-arrow" viewBox="0 0 12 12" refX="11" refY="6"
+            markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12" fill="none" stroke="#94a3b8" stroke-width="2"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1280" height="900"/>
+
+  <!-- TÍTULO -->
+  <text x="640" y="40" text-anchor="middle" class="header">SentinelTrie — Diagrama UML de Clases</text>
+  <text x="640" y="62" text-anchor="middle" class="subheader">
+    Herencia (Motor abstracto) + Composición (Trie) + Agregación (NodoTrie)
+  </text>
+
+  <!-- ================================ -->
+  <!-- LEYENDA superior izquierda -->
+  <!-- ================================ -->
+  <g transform="translate(30, 80)">
+    <rect x="0" y="0" width="280" height="200" fill="#0b1224" stroke="#334155" stroke-width="1.5" rx="8"/>
+    <text x="140" y="22" text-anchor="middle" class="label-bold">Leyenda UML</text>
+    <line x1="20" y1="32" x2="260" y2="32" stroke="#334155" stroke-width="1"/>
+
+    <!-- Herencia -->
+    <line x1="20" y1="55" x2="80" y2="55" class="arrow-inh"/>
+    <text x="95" y="59" class="label">Herencia (extends)</text>
+
+    <!-- Composición -->
+    <line x1="20" y1="90" x2="80" y2="90" class="arrow-comp"/>
+    <text x="95" y="94" class="label">Composición (rombo lleno)</text>
+
+    <!-- Agregación -->
+    <line x1="20" y1="125" x2="80" y2="125" class="arrow-agg"/>
+    <text x="95" y="129" class="label">Agregación (rombo vacío)</text>
+
+    <!-- Dependencia -->
+    <line x1="20" y1="160" x2="80" y2="160" class="arrow-dep"/>
+    <text x="95" y="164" class="label">Dependencia (uso)</text>
+
+    <text x="20" y="188" class="sub">Línea discontinua = clase abstracta</text>
+  </g>
+
+  <!-- ================================ -->
+  <!-- MotorEscaneo (abstracto) -->
+  <!-- ================================ -->
+  <g>
+    <rect class="cls-abs" x="500" y="120" width="280" height="180" rx="8"/>
+    <text x="640" y="142" text-anchor="middle" class="stereo">«abstract»</text>
+    <text x="640" y="162" text-anchor="middle" class="title-abs">MotorEscaneo</text>
+    <line class="sep" x1="500" y1="172" x2="780" y2="172"/>
+    <text x="515" y="190" class="member"># trie: Trie</text>
+    <text x="515" y="208" class="member"># nombre: str</text>
+    <line class="sep" x1="500" y1="218" x2="780" y2="218"/>
+    <text x="515" y="236" class="member">+ __init__(trie, nombre)</text>
+    <text x="515" y="254" class="member-abs">+ analizar(datos): list  {abstract}</text>
+    <text x="515" y="272" class="member">+ escanear_archivo(ruta)</text>
+    <text x="515" y="290" class="member">+ __repr__(): str</text>
+  </g>
+
+  <!-- ================================ -->
+  <!-- EscaneoFirmaExacta -->
+  <!-- ================================ -->
+  <g>
+    <rect class="cls" x="120" y="430" width="320" height="160" rx="8"/>
+    <text x="280" y="455" text-anchor="middle" class="title">EscaneoFirmaExacta</text>
+    <line class="sep" x1="120" y1="467" x2="440" y2="467"/>
+    <text x="135" y="485" class="sub">(hereda atributos de MotorEscaneo)</text>
+    <line class="sep" x1="120" y1="495" x2="440" y2="495"/>
+    <text x="135" y="513" class="member">+ __init__(trie)</text>
+    <text x="135" y="531" class="member">+ analizar(datos): list</text>
+    <text x="135" y="554" class="sub">// busca firmas EXACTAS — O(m)</text>
+    <text x="135" y="572" class="sub">// usa Trie.buscar_en_datos()</text>
+  </g>
+
+  <!-- ================================ -->
+  <!-- EscaneoFirmaParcial -->
+  <!-- ================================ -->
+  <g>
+    <rect class="cls" x="840" y="430" width="320" height="180" rx="8"/>
+    <text x="1000" y="455" text-anchor="middle" class="title">EscaneoFirmaParcial</text>
+    <line class="sep" x1="840" y1="467" x2="1160" y2="467"/>
+    <text x="855" y="485" class="member">+ errores: int</text>
+    <text x="855" y="503" class="member">+ longitudes_firma: list</text>
+    <line class="sep" x1="840" y1="513" x2="1160" y2="513"/>
+    <text x="855" y="531" class="member">+ __init__(trie, errores=1)</text>
+    <text x="855" y="549" class="member">+ analizar(datos): list</text>
+    <text x="855" y="567" class="member">- _longitudes(): list</text>
+    <text x="855" y="590" class="sub">// busca con MUTACIONES — backtracking</text>
+    <text x="855" y="606" class="sub">// usa Trie.buscar_aprox()</text>
+  </g>
+
+  <!-- ================================ -->
+  <!-- Trie -->
+  <!-- ================================ -->
+  <g>
+    <rect class="cls-data" x="120" y="670" width="320" height="200" rx="8"/>
+    <text x="280" y="695" text-anchor="middle" class="title-data">Trie</text>
+    <line class="sep" x1="120" y1="707" x2="440" y2="707"/>
+    <text x="135" y="725" class="member">+ raiz: Nodo</text>
+    <text x="135" y="743" class="member">+ n_firmas: int</text>
+    <line class="sep" x1="120" y1="753" x2="440" y2="753"/>
+    <text x="135" y="771" class="member">+ insertar(firma, nombre)</text>
+    <text x="135" y="789" class="member">+ buscar(firma): str</text>
+    <text x="135" y="807" class="member">+ buscar_en_datos(datos): list</text>
+    <text x="135" y="825" class="member">+ buscar_aprox(patron, err): list</text>
+    <text x="135" y="848" class="sub">// inserción y búsqueda RECURSIVAS</text>
+  </g>
+
+  <!-- ================================ -->
+  <!-- Nodo -->
+  <!-- ================================ -->
+  <g>
+    <rect class="cls-data" x="500" y="670" width="260" height="160" rx="8"/>
+    <text x="630" y="695" text-anchor="middle" class="title-data">Nodo</text>
+    <line class="sep" x1="500" y1="707" x2="760" y2="707"/>
+    <text x="515" y="725" class="member">+ hijos: dict[int, Nodo]</text>
+    <text x="515" y="743" class="member">+ final: bool</text>
+    <text x="515" y="761" class="member">+ nombre: str</text>
+    <line class="sep" x1="500" y1="771" x2="760" y2="771"/>
+    <text x="515" y="789" class="member">+ __init__()</text>
+    <text x="515" y="810" class="sub">// estructura recursiva: cada</text>
+    <text x="515" y="826" class="sub">// Nodo contiene más Nodos</text>
+  </g>
+
+  <!-- ================================ -->
+  <!-- Escaner -->
+  <!-- ================================ -->
+  <g>
+    <rect class="cls" x="840" y="670" width="320" height="180" rx="8"/>
+    <text x="1000" y="695" text-anchor="middle" class="title">Escaner (modulo)</text>
+    <line class="sep" x1="840" y1="707" x2="1160" y2="707"/>
+    <text x="855" y="725" class="member">+ escanear(motor, ruta): list</text>
+    <text x="855" y="743" class="member">- _recorrer(motor, dir, res)</text>
+    <line class="sep" x1="840" y1="753" x2="1160" y2="753"/>
+    <text x="855" y="771" class="sub">// recorrido RECURSIVO DFS</text>
+    <text x="855" y="789" class="sub">// de directorios</text>
+    <text x="855" y="815" class="sub">// recibe MotorEscaneo</text>
+    <text x="855" y="831" class="sub">// (polimorfismo)</text>
+  </g>
+
+  <!-- ================================ -->
+  <!-- FLECHAS UML -->
+  <!-- ================================ -->
+
+  <!-- HERENCIA: EscaneoFirmaExacta -> MotorEscaneo (triángulo vacío) -->
+  <path class="arrow-inh" d="M 280 430 L 280 360 L 580 360 L 580 305"/>
+  <text x="380" y="350" class="label-bold" fill="#a855f7">extends</text>
+
+  <!-- HERENCIA: EscaneoFirmaParcial -> MotorEscaneo (triángulo vacío) -->
+  <path class="arrow-inh" d="M 1000 430 L 1000 360 L 700 360 L 700 305"/>
+  <text x="850" y="350" class="label-bold" fill="#a855f7">extends</text>
+
+  <!-- COMPOSICIÓN: MotorEscaneo -<>- Trie (rombo lleno hacia Trie) -->
+  <path class="arrow-comp" d="M 500 240 L 380 240 L 380 665"/>
+  <text x="395" y="455" class="label" transform="rotate(-90 395 455)">tiene un</text>
+  <text x="345" y="310" class="label-bold" fill="#22d3ee">1</text>
+  <text x="345" y="650" class="label-bold" fill="#22d3ee">1</text>
+
+  <!-- AGREGACIÓN: Trie -<>- Nodo (rombo vacío hacia Nodo) -->
+  <path class="arrow-agg" d="M 440 770 L 495 770"/>
+  <text x="450" y="762" class="label-bold" fill="#10b981">1</text>
+  <text x="478" y="762" class="label-bold" fill="#10b981">*</text>
+
+  <!-- DEPENDENCIA: Escaner -> MotorEscaneo (línea discontinua) -->
+  <path class="arrow-dep" d="M 1000 670 L 1000 305"/>
+  <text x="1010" y="500" class="label">«usa» (polimorfismo)</text>
+
+  <!-- DEPENDENCIA: EscaneoFirmaExacta -> Trie -->
+  <path class="arrow-dep" d="M 220 590 L 220 665"/>
+  <text x="125" y="625" class="label">«usa» buscar_en_datos</text>
+
+  <!-- DEPENDENCIA: EscaneoFirmaParcial -> Trie -->
+  <path class="arrow-dep" d="M 900 610 L 440 720"/>
+  <text x="640" y="640" class="label">«usa» buscar_aprox</text>
+
+</svg>
