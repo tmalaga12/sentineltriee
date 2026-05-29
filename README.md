@@ -148,7 +148,7 @@ python main.py --firmas ../data/signatures/signatures.db \
 ### Tests y benchmarks
 
 ```bash
-# 9 tests unitarios
+# 5 tests unitarios
 python tests/test_trie.py
 
 # Benchmark Trie vs. lineal — genera tests/benchmark_results.csv
