@@ -1,0 +1,29 @@
+# Bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+
+# Resultados de tests/benchmarks
+tests/benchmark_results.csv
+
+# Informes generados ad hoc
+informe.json
+*.log
+
+# Archivos temporales del SO
+.DS_Store
+Thumbs.db
+
+# Auxiliar de generación de PDFs
+data/signatures/signatures.db.tmp
+
+
