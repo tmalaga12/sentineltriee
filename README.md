@@ -163,6 +163,8 @@ python tests/benchmark.py
 ## Enlace al vídeo demostrativo
 **URL:** ' https://youtu.be/GKYMO7XU1RI '
 
+## Uso de IA
+Nos hemos ayudado de una IA en la búsqueda aproximada con backtracking del Trie (buscar_aprox y _aprox en source/trie.py) para entender el patrón de las dos ramas de recursión. El resto del código y la lógica los hemos diseñado e implementado nosotros. Está indicado también con un comentario en el propio archivo.
 
 ## Estructura del repositorio
 
